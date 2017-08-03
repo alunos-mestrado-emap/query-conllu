@@ -1,6 +1,6 @@
 # `cl-conllu` quickstart
 
-[ ](a biblioteca funciona em outros compiladores além de sbcl?)
+<!-- a biblioteca funciona em outros compiladores além de sbcl? -->
 
 `cl-conllu` is a Common Lisp library to work
 with [CoNLL-U](http://universaldependencies.org/format.html) files,
@@ -68,11 +68,11 @@ the [OpenWordnet-PT](http://wnpt.brlcloud.com/wn/).
 
 ## cl-conllu objects
 
-[ ](see data.lisp)
+<!-- see data.lisp -->
 
 ### tokens
 
-[ ](what's the difference between tokens and mtokens?)
+<!-- what's the difference between tokens and mtokens? -->
 
 ### sentences
 

@@ -1,6 +1,6 @@
 # Tipos de query
 
-[ ](made by @oilujcesarv and @odanoburu)
+<!-- made by @oilujcesarv and @odanoburu-->
 
 copiando e comentando
 [essa página](http://bionlp.utu.fi/searchexpressions-new.html).
@@ -148,7 +148,7 @@ copiando e comentando
 
     (> (governor-token governed-token &optional type direction) body)
     ;; mas e como lidar com vários governed token? fazer:
-    (> (governor-token &rest governed-tokens) body)
+     (> (governor-token &rest governed-tokens) body)
     ;; em que governed token é substituído por quantas listas forem de (governed-token type direction)
 
 - [ ] combinação de queries
