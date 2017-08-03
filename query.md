@@ -1,6 +1,6 @@
 # Tipos de query
 
-[](made by @oilujcesarv and @odanoburu)
+[ ](made by @oilujcesarv and @odanoburu)
 
 copiando e comentando
 [essa página](http://bionlp.utu.fi/searchexpressions-new.html).
