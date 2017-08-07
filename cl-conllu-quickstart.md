@@ -31,8 +31,7 @@ just have to load the library. Do
 
 	(ql:quickload "cl-conllu")
 
-and quicklisp will download the library's dependencies and then load
-it.
+and quicklisp will download the library's dependencies and then load it.
 
 ## reading CoNLL-U files
 
@@ -43,7 +42,8 @@ in mind, you may get some from
 The simplest way to read a file with `cl-conllu` is with `read-file`:
 
 ``` common-lisp
-CL-USER> (cl-conllu:read-file #p"/path/to/my/file/CF1.conllu")
+CL-USER> (defparameter *sents* nil)
+CL-USER> (setf *sents* (cl-conllu:read-file #p"/path/to/my/file/CF1.conllu"))
 (#<CL-CONLLU:SENTENCE {1003CFD9C3}> #<CL-CONLLU:SENTENCE {1003D164C3}>
  #<CL-CONLLU:SENTENCE {1003D1BB13}> #<CL-CONLLU:SENTENCE {1003D2C013}>
  #<CL-CONLLU:SENTENCE {1003D348A3}> #<CL-CONLLU:SENTENCE {1003D3E383}>
@@ -88,6 +88,13 @@ vary, as we have discussed in the previous section, but usually
 includes the full (raw) sentence and the sentence ID, as required by
 the CoNLL-U format specification.
 
+``` common-lisp
+CL-USER> (cl-conllu:sentence-meta (first *sents*))
+(("text" . "PT no governo")
+ ("source" . "CETENFolha n=1 cad=Opinião sec=opi sem=94a")
+ ("sent_id" . "CF1-1") ("id" . "1"))
+```
+
 The `tokens` are the list of tokens that together form the sentence,
 and they are themselves instances of the `token` class.
 
@@ -121,8 +128,45 @@ in the CoNLL-U format's sentences, that is:
 >    head-deprel pairs.
 > 10. MISC: Any other annotation.
 
+for instance,
 
-## visualizing CoNLL-U files
+``` common-lisp
+CL-USER> (mapcar #'cl-conllu:token-form (cl-conllu:sentence-tokens (first *frases*)))
+("PT" "em" "o" "governo")
+CL-USER> (mapcar #'cl-conllu:token-feats (cl-conllu:sentence-tokens (first *frases*)))
+("Gender=Masc|Number=Sing" "_"
+ "Definite=Def|Gender=Masc|Number=Sing|PronType=Art" "Gender=Masc|Number=Sing")
+```
+
+## visualizing CoNLL-U sentences
+
+To visualize CoNLL-U sentences, we use the `conllu-visualize`
+subpackage. The function `tree-sentence` receives an instance of a
+sentence object and (optionally) an output stream, and outputs to the
+stream the sentence's metadata and its tree structure:
+
+``` common-lisp
+CL-USER> (conllu-visualize:tree-sentence (nth 5 *frases*))
+text = Eles se dizem oposição, mas ainda não informaram o que vão combater.
+source = CETENFolha n=1 cad=Opinião sec=opi sem=94a
+sent_id = CF1-7
+id = 6
+─┮ 
+ │ ╭─╼ Eles nsubj 
+ │ ├─╼ se expl 
+ ╰─┾ dizem root 
+   ├─╼ oposição xcomp 
+   │ ╭─╼ , punct 
+   │ ├─╼ mas cc 
+   │ │ ╭─╼ ainda advmod 
+   │ ├─┶ não advmod 
+   ├─┾ informaram conj 
+   │ │   ╭─╼ o det 
+   │ │ ╭─┶ que obj 
+   │ │ ├─╼ vão aux 
+   │ ╰─┶ combater ccomp 
+   ╰─╼ . punct 
+```
 
 ## querying CoNLL-U files
 
